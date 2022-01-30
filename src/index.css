@@ -1,13 +1,97 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.fullacreen {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+.main__content {
+  height: 100%;
+  position: relative;
+  /* transition: all 450ms ease-in-out; */
+}
+.vh {
+  width: 100%;
+  height: 100vh;
+  color: beige;
+  font-size: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.one {
+  background: rgb(84, 242, 168);
+}
+
+.two {
+  background: rgb(253, 109, 109);
+}
+
+.three {
+  background: rgb(196, 125, 255);
+}
+.four{
+  background: rgb(255, 181, 125);
+  /* height: 1400px; */
+}
+footer {
+  background: rgb(103, 220, 255);
+  height: 300px;
+  color: beige;
+  font-size: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#app {
+  height: 100%;
+}
+html,
+body {
+  position: relative;
+  height: 100%;
+}
+
+body {
+  background: #eee;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #000;
+  margin: 0;
+  padding: 0;
+
+  height: 100%;
+  overflow: hidden;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
