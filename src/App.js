@@ -12,6 +12,7 @@ window.addEventListener('load', () => {
   function scrollMain(e) {
     console.log(scroll)
     console.log(can_scroll)
+
     if (can_scroll) {
       if (scroll) {
         can_scroll = false
