@@ -1,31 +1,59 @@
-
 window.addEventListener('load', () => {
 
   const sections = document.querySelectorAll('.section'),
     content = document.querySelector('.main__content'),
     fullacreen = document.querySelector('.fullacreen')
-  let spin_value = 0
-  let can_scroll = true
-  let n = 0
-  // let tY = 0
+
+  let spin_value = 0,
+    n = 0,
+    can_scroll = true,
+    scroll = true;
 
   function scrollMain(e) {
+    console.log(scroll)
+    console.log(can_scroll)
     if (can_scroll) {
-      can_scroll = false
-      if (e.deltaY > 0) {
-        // scroll down
-        if (spin_value < sections.length - 1)
-          spin_value += 1
+      if (scroll) {
+        can_scroll = false
+        if (e.deltaY > 0) {
+          // scroll down
+          if (spin_value < sections.length - 1)
+            spin_value += 1
+          console.log(can_scroll)
+        } else {
+          if (spin_value > 0)
+            spin_value -= 1
+          console.log(can_scroll)
+          // scroll up
+          setTimeout(function () { can_scroll = true }, 450)
+        }
+        scroll_content(spin_value)
+
+        /* <======== Надо подумать ========> */
       } else {
-        if (spin_value > 0)
-          spin_value -= 1
-        // scroll up
+        can_scroll = false
+        // Если блок больше 100vh
+        window.onscroll = function (e) {
+          if (window.scrollY <= 0) {
+            // начало блока
+            setTimeout(function () { scroll = true; can_scroll = true }, 450)
+
+          } else if (document.body.clientHeight >= sections[spin_value].getBoundingClientRect().bottom) {
+            // конец блока
+            console.log('123123')
+
+            e.deltaY = 100
+            setTimeout(function () { can_scroll = true; scroll = true; scrollMain(e) }, 450)
+          }
+        }
       }
-      scroll_content(spin_value)
+
     }
     setTimeout(function () { can_scroll = true }, 450)
   }
+
   window.addEventListener('wheel', scrollMain)
+
 
 
   var touchPos;
@@ -38,6 +66,7 @@ window.addEventListener('load', () => {
   }
 
   document.body.ontouchmove = function (e) {
+    console.log(e)
     let newTouchPos = e.changedTouches[0].clientY;
 
     if (can_scroll) {
@@ -54,7 +83,7 @@ window.addEventListener('load', () => {
       }
       scroll_content(spin_value)
     }
-    setTimeout(function () { }, 650)
+    setTimeout(function () { }, 450)
   }
 
 
@@ -65,19 +94,13 @@ window.addEventListener('load', () => {
 
   function scroll_content(count) {
     // remove and add class active
+    console.log(count)
     sections[n].classList.remove('active')
     sections[count].classList.add('active')
 
-    // let sum = sections[count].scrollHeight + tY
-    console.log(sections)
-    console.log(sections[count].getBoundingClientRect())
-    console.log(sections[count].offsetTop)
-    // console.log('Высота блока', sections[count].scrollHeight)
-    // console.log('Высота прошлое значение', tY)
-    // console.log('Высота сумма высота + прошлое значение', sum)
-    // console.log(sections[count].offsetTop)
 
     if (sections[count].classList.contains('vh')) {
+      document.body.style.overflow = 'hidden';
       content.setAttribute('style', '\
       -moz-transform: translate3d(0, -'+ sections[count].offsetTop + 'px, 0);\
       -o-transform: translate3d(0, -'+ sections[count].offsetTop + 'px, 0);\
@@ -85,40 +108,47 @@ window.addEventListener('load', () => {
       transform: translate3d(0, -'+ sections[count].offsetTop + 'px, 0); \
       transition: all 650ms ease 0s \
       ')
-    } else if (sections[count].classList.contains('footer')) {
-
+    } else if (sections[count].classList.contains('ah')) {
+      scroll = false
+      document.body.style.overflow = 'visible';
       content.setAttribute('style', '\
-      -moz-transform: translate3d(0, -'+ (sections[count - 1].offsetTop + sections[count].offsetHeight) + 'px, 0);\
-      -o-transform: translate3d(0, -'+ (sections[count - 1].offsetTop + sections[count].offsetHeight) + 'px, 0);\
-      -webkit-transform: translate3d(0, -'+ (sections[count - 1].offsetTop + sections[count].offsetHeight) + 'px, 0);\
-      transform: translate3d(0, -'+ (sections[count - 1].offsetTop + sections[count].offsetHeight) + 'px, 0); \
+      -moz-transform: translate3d(0, -'+ sections[count].offsetTop + 'px, 0);\
+      -o-transform: translate3d(0, -'+ sections[count].offsetTop + 'px, 0);\
+      -webkit-transform: translate3d(0, -'+ sections[count].offsetTop + 'px, 0);\
+      transform: translate3d(0, -'+ sections[count].offsetTop + 'px, 0); \
       transition: all 650ms ease 0s \
       ')
+
+    } else if (sections[count].classList.contains('footer')) {
+      document.body.style.overflow = 'hidden';
+      content.setAttribute('style', '\
+       -moz-transform: translate3d(0, -'+ (sections[count - 1].offsetTop + sections[count].offsetHeight) + 'px, 0);\
+       -o-transform: translate3d(0, -'+ (sections[count - 1].offsetTop + sections[count].offsetHeight) + 'px, 0);\
+       -webkit-transform: translate3d(0, -'+ (sections[count - 1].offsetTop + sections[count].offsetHeight) + 'px, 0);\
+       transform: translate3d(0, -'+ (sections[count - 1].offsetTop + sections[count].offsetHeight) + 'px, 0); \
+       transition: all 650ms ease 0s \
+       ')
     } else {
       console.log('213213')
+
+      /* console.log(sections[count].getBoundingClientRect());
       content.setAttribute('style', '\
-      -moz-transform: translate3d(0, -'+ sections[count].offsetTop + 'px, 0);\
+      -moz-transform: translate3d(0, -'+( sections[count].offsetTop )+ 'px, 0);\
       -o-transform: translate3d(0, -'+ sections[count].offsetTop + 'px, 0);\
       -webkit-transform: translate3d(0, -'+ sections[count].offsetTop + 'px, 0);\
       transform: translate3d(0, -'+ sections[count].offsetTop + 'px, 0); \
       transition: all 650ms ease 0s \
-      ')
+      ') */
     }
 
-
-
     n = count
-    // tY = sum
 
     if (count === 2) {
       fullacreen.setAttribute('style', '\
       overflow: visible;\
-      height: auto;\
       ')
     }
-
   }
-
 })
 
 function App() {
@@ -139,7 +169,7 @@ function App() {
           4
         </div>
         <footer className='footer section'>
-          4
+          5
         </footer>
 
       </div>

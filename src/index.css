@@ -33,6 +33,11 @@
   background: rgb(255, 181, 125);
   /* height: 1400px; */
 }
+
+.ah{
+  /* height: auto; */
+}
+
 footer {
   background: rgb(103, 220, 255);
   height: 300px;
