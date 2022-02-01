@@ -68,6 +68,7 @@ window.addEventListener('load', () => {
 
   document.body.ontouchmove = function (e) {
     console.log(e)
+
     let newTouchPos = e.changedTouches[0].clientY;
 
     if (can_scroll) {
